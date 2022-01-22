@@ -30,7 +30,7 @@ gs = gspread.authorize(credentials)
 #共有設定したスプレッドシートキーを変数[SPREADSHEET_KEY]に格納する。
 SPREADSHEET_KEY = '1gMvKboqdyOrl2g9_pEpsgFAlEnCKkS70eiggn6e3BG8'
 
-#共有設定したスプレッドシートのシート1を開く
+#共有設定したスプレッドシートのsheet1を開く
 worksheet = gs.open_by_key(SPREADSHEET_KEY).worksheet("sheet1")
 
 
@@ -61,21 +61,6 @@ def callback():
 
     return 'OK'
 
-'''
-@handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):
-    if event.message.text == "ありがとう":
-        musicname = worksheet.acell("A1").value
-        reply_message = musicname
-    else:
-        musicname = event.message.text
-        reply_message = f"あなたは{event.message.text[-1]}といいました"
-
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=reply_message))
-'''
-
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     #ーとか!を除いた最後の文字の位置を調べる
@@ -102,7 +87,7 @@ def handle_message(event):
         else:
             break
 
-    #あいての最後の文字が「ん」だったとき相手の負け
+    #相手の最後の文字が「ん」だったとき相手の負け
     if event.message.text[k] == "ん":
         reply_message1 = "キミノマケメカ"
         reply_message2 = "デナオシテコイメカ"
@@ -112,7 +97,7 @@ def handle_message(event):
 
     #「ん」意外の時最後の文字からはじまる曲名をランダムで出力する
     else:
-        x = random.randint(2,99) #ランダムな単語を出力するときに使う
+        x = random.randint(2,99) #ランダムな曲名を出力するときに使う
         endchar = event.message.text[k]
         endchar = endchar.replace("が","か").replace("ぎ","き").replace("ぐ","く").replace("げ","け").replace("ご","こ").replace("ざ","さ").replace("じ","し").replace("ず","す").replace("ぜ","せ").replace("ぞ","そ").replace("だ","た").replace("ぢ","ち").replace("づ","つ").replace("で","て").replace("ど","と").replace("ば","は").replace("び","ひ").replace("ぶ","ふ").replace("べ","へ").replace("ぼ","ほ").replace("ぱ","は").replace("ぴ","ひ").replace("ぷ","ふ").replace("ぺ","へ").replace("ぽ","ほ").replace("ぁ","あ").replace("ぃ","い").replace("ぅ","う").replace("ぇ","え").replace("ぉ","お").replace("っ","つ").replace("ゃ","や").replace("ゅ","ゆ").replace("ょ","よ").replace("ゎ","わ").replace("ゔ","う").replace("を","お")
         #最後の文字と同じ文字を一列目から探す
@@ -137,8 +122,9 @@ def handle_message(event):
                 line_bot_api.reply_message(
                     event.reply_token,
                     TextSendMessage(text=reply_message1))
+        #最後の文字と同じ文字がなかった時
         else:
-            reply_message = "ソンナコトバハナイメカ"
+            reply_message = "ソンナキョクハナイメカ"
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text=reply_message))
