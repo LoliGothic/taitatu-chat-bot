@@ -26,7 +26,7 @@ key = S3Connection(os.environ['apiKey'])
 
 #認証情報設定
 #ダウンロードしたjsonファイル名をクレデンシャル変数に設定（秘密鍵、Pythonファイルから読み込みしやすい位置に置く）
-credentials = ServiceAccountCredentials.from_json_keyfile_name(key, scope)
+credentials = ServiceAccountCredentials.from_json_keyfile_dict(key, scope)
 
 #OAuth2の資格情報を使用してGoogle APIにログイン
 gs = gspread.authorize(credentials)
