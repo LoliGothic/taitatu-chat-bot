@@ -24,12 +24,9 @@ scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/aut
 
 key = S3Connection(os.environ['apiKey'])
 
-with open("secret.json", "w") as outputFile:
-    json.dump(key, outputFile, indent=2 )
-
 #認証情報設定
 #ダウンロードしたjsonファイル名をクレデンシャル変数に設定（秘密鍵、Pythonファイルから読み込みしやすい位置に置く）
-credentials = ServiceAccountCredentials.from_json_keyfile_name('secret.json', scope)
+credentials = ServiceAccountCredentials.from_json_keyfile_name(key, scope)
 
 #OAuth2の資格情報を使用してGoogle APIにログイン
 gs = gspread.authorize(credentials)
