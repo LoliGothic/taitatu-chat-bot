@@ -23,7 +23,7 @@ scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/aut
 
 #認証情報設定
 #ダウンロードしたjsonファイル名をクレデンシャル変数に設定（秘密鍵、Pythonファイルから読み込みしやすい位置に置く）
-credentials = ServiceAccountCredentials.from_json_keyfile_name(json.loads(os.environ[apiKey]), scope)
+credentials = ServiceAccountCredentials.from_json_keyfile_name(os.environ[apiKey], scope)
 
 #OAuth2の資格情報を使用してGoogle APIにログイン
 gs = gspread.authorize(credentials)
