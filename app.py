@@ -1,4 +1,5 @@
 from flask import Flask, request, abort
+from boto.s3.connection import S3Connection
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -21,7 +22,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 #2つのAPIを記述しないとリフレッシュトークンを3600秒毎に発行し続けなければならない
 scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
 
-key = os.environ['apiKey']
+key = S3Connection(os.environ['apiKey'])
 
 with open("secret.json", "w") as outputFile:
     json.dump(key, outputFile, indent=2 )
