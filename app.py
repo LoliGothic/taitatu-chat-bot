@@ -21,7 +21,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 #2つのAPIを記述しないとリフレッシュトークンを3600秒毎に発行し続けなければならない
 scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
 
-key = os.environ['apiKey']
+key = json.dump(os.environ['apiKey'])
 
 with open("secret.json", "w") as outputFile:
     json.dump(key, outputFile, indent=2 )
