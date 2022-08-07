@@ -21,10 +21,11 @@ from oauth2client.service_account import ServiceAccountCredentials
 #2つのAPIを記述しないとリフレッシュトークンを3600秒毎に発行し続けなければならない
 scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
 
+# herokuの環境変数からapiキーを取得．jsonオブジェクからpythonオブジェクトへ変換
 credential = json.loads(os.environ["SHEET_KEY"])
 
 #認証情報設定
-#ダウンロードしたjsonファイル名をクレデンシャル変数に設定（秘密鍵、Pythonファイルから読み込みしやすい位置に置く）
+#keyfile_nameをkeyfile_dictとすることで，pythonオブジェクトから認証情報を取得できる
 credentials = ServiceAccountCredentials.from_json_keyfile_dict(credential, scope)
 
 #OAuth2の資格情報を使用してGoogle APIにログイン
